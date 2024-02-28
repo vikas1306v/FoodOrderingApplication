@@ -1,0 +1,20 @@
+services:
+  my-app:
+    image: my-app
+    ports:
+      - "8080:8080"
+    environment:
+    - 'MYSQL_USER=myuser'
+    - 'MYSQL_DB=mydatabase'
+    - 'MYSQL_PASSWORD=secret'
+    depends_on:
+      - my-db
+  my-db:
+    image: mysql:5.7
+    environment:
+    - 'MYSQL_ROOT_PASSWORD=secret'
+    - 'MYSQL_DATABASE=mydatabase'
+    - 'MYSQL_USER=myuser'
+
+volumes:
+  my-volume:
