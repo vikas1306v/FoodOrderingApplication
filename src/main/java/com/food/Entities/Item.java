@@ -1,5 +1,6 @@
 package com.food.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="item")
+@Table(name="item_table")
 public class Item
 {
     @Id
@@ -26,14 +27,15 @@ public class Item
     private Integer item_quantity;
     private Integer item_discount;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "category_id")
     private Categories categories;
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order_id;
+//    @ManyToOne
+//    @JoinColumn(name = "order_id")
+//    private Order order_id;
     @ManyToOne
     private Cart  cart;
-    @OneToMany
+    @OneToMany(mappedBy = "item")
     private List<Review> review;
 
 

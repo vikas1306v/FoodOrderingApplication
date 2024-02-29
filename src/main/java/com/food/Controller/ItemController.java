@@ -27,11 +27,6 @@ public class ItemController
         return itemService.createItem(item);
     }
 
-    @GetMapping("/findbycategory/{category_id}")
-    public ResponseEntity<?> findItemByCategoryId(@PathVariable Integer category_id)
-    {
-        return itemService.findItemByCategoryId(category_id);
-    }
 
 
 }

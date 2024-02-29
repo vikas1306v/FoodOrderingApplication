@@ -53,9 +53,9 @@ public class ImageService {
             fileName = UUID.randomUUID().toString().concat(getExtension(fileName));  // to generated random string values for file name.
 
             File file = convertToFile(multipartFile, fileName);                      // to convert multipartFile to File
-            return  uploadFile(file, fileName);                                   // to get uploaded file link
-
-
+            String URL = this.uploadFile(file, fileName);                                   // to get uploaded file link
+            file.delete();
+            return URL;
         } catch (Exception e) {
 
             return "Image couldn't upload, Something went wrong";

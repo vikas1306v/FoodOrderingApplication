@@ -33,8 +33,13 @@ public class User implements UserDetails
     private Role role;
     @OneToMany(mappedBy = "user")
     private List<Review> review;
-    @OneToOne
+    @OneToOne(mappedBy = "customer")
     private Cart cart;
+
+    @OneToOne(mappedBy = "customer")
+    private Wishlist wishlist;
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orders;
 
 
     @Override

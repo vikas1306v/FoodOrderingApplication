@@ -26,9 +26,37 @@ public class CategoryController
                                                       @RequestParam("file") MultipartFile multipartFile)
     {
         String fileName = imageService.upload(multipartFile);
-
-        Categories build = Categories.builder().c_name(category_name).c_description(category_description).c_image(fileName).build();
+        Categories build = Categories.builder().
+                c_name(category_name).
+                c_description(category_description).
+                c_image(fileName).build();
         return categoryService.createCategory(build);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> delete(@PathVariable Integer id)
+    {
+        return categoryService.deleteCategory(id);
+    }
+
+    @PostMapping("/update/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Categories category)
+    {
+        if(id==null || category==null)
+        {
+            return ResponseEntity.badRequest().body("Invalid request Id or category is null");
+
+        }
+        return categoryService.updateCategory(id, category);
+    }
+
+    //find items by category
+    @GetMapping("/find/{id}")
+    public ResponseEntity<?> findItemsByCategory(@PathVariable Integer id)
+    {
+        return categoryService.findItemsInCategory(id);
     }
 
 }

@@ -19,8 +19,9 @@ public class Cart
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cart_Id;
-    @OneToOne(mappedBy = "cart")
-    private User user;
+    @OneToOne()
+    @JoinColumn(name = "customer_id")
+    private User customer;
     @OneToMany(mappedBy = "cart")
     private List<Item> items;
     private Integer total;

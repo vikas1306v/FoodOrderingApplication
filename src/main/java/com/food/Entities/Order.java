@@ -27,8 +27,11 @@ public class Order
     private String order_payment_status;
     @OneToOne
     private Payment payment;
-    @OneToMany(mappedBy = "order_id")
-    private List<Item> item;
+//    @OneToMany(mappedBy = "order_id")
+//    private List<Item> item;
+    @ManyToOne
+    @JoinColumn (name = "customer_id")
+    private User customer;
 
 
 }
