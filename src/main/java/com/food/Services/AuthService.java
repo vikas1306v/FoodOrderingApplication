@@ -6,7 +6,6 @@ import com.food.Exception.AuthenticationFailedException;
 import com.food.Exception.InvalidCredentialsException;
 import com.food.Exception.UserAlreadyExist;
 import com.food.Dto.Response.AuthResponseDto;
-import com.food.Exception.ValidationException;
 import com.food.Utils.Role;
 import com.food.Entities.User;
 import com.food.Repository.UserRepository;
@@ -21,10 +20,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
-import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
@@ -35,26 +30,19 @@ public class AuthService
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-    private final Validator validator;
-    private final ImageService imageService;
 
-    public ResponseEntity<GenericResponseBean<AuthResponseDto>> createUser(MultipartFile multipartFile, AuthRequestForRegisterDto authRequest)
+
+
+    public ResponseEntity<GenericResponseBean<AuthResponseDto>> createUser(AuthRequestForRegisterDto authRequest)
     {
-        Errors errors = new BeanPropertyBindingResult(authRequest, "authRequest");
-        validator.validate(authRequest, errors);
-
-        if (errors.hasErrors()) {
-            throw new ValidationException(errors);
-        }
+        validateAuthRequest(authRequest);
         userRepository.findByEmail(authRequest.getEmail()).ifPresent(user -> {
             throw new UserAlreadyExist("User already exists");
         });
-        String userImageUrl=imageService.upload(multipartFile);
         User saveduser=User.builder().email(authRequest.getEmail()).
                 address(authRequest.getAddress()).
                 password(passwordEncoder.encode(authRequest.getPassword())).
                 name(authRequest.getName()).
-                imageUrl(userImageUrl).
                 role(Role.ROLE_ADMIN).
                 build();
         User user = userRepository.save(saveduser);
@@ -65,6 +53,22 @@ public class AuthService
                 data(AuthResponseDto.builder().token(token).build())
                 .build());
     }
+    private void validateAuthRequest(AuthRequestForRegisterDto authRequest) {
+        if (authRequest.getEmail() == null || !authRequest.getEmail().contains("@")) {
+            throw new IllegalArgumentException("Invalid email format");
+        }
+        if (authRequest.getPassword() == null || authRequest.getPassword().length() < 6) {
+            throw new IllegalArgumentException("Password must be at least 6 characters long");
+        }
+        if (!isPasswordComplex(authRequest.getPassword())) {
+            throw new IllegalArgumentException("Password must contain at least one digit, one lowercase letter, one uppercase letter, one special character");
+        }
+    }
+
+    private boolean isPasswordComplex(String password) {
+        return password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$");
+    }
+
 
     public ResponseEntity<GenericResponseBean<AuthResponseDto>> login(AuthRequestForLoginDto authRequest) {
         try {

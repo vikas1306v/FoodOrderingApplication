@@ -39,8 +39,7 @@ public class SecurityConfig
     private final AuthenticationProvider authenticationProvider ;
 
     String [] bypassUrl={"/auth/**",
-            "/image/**",
-            "/auth/google/**"};
+            "/image/**"};
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
       http.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable)
@@ -57,7 +56,7 @@ public class SecurityConfig
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://example.com"));
+        configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

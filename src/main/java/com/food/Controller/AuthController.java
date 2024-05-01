@@ -20,9 +20,9 @@ public class AuthController
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<GenericResponseBean<AuthResponseDto>> register(@RequestParam("file")MultipartFile multipartFile, @Valid @RequestBody AuthRequestForRegisterDto authRequest)
+    public ResponseEntity<GenericResponseBean<AuthResponseDto>> register(@RequestBody AuthRequestForRegisterDto authRequest)
     {
-        return authService.createUser(multipartFile,authRequest);
+        return authService.createUser(authRequest);
     }
 
     @PostMapping("/login")

@@ -23,10 +23,8 @@ public class CategoryController
 
     @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<GenericResponseBean<?>> create(
-                                                      @RequestParam("file") MultipartFile multipartFile,
-                                                    @RequestBody CreateCategoryRequestDto createCategoryRequestDto) {
-        return categoryService.createCategory(multipartFile, createCategoryRequestDto);
+    public ResponseEntity<GenericResponseBean<?>> create(@RequestBody() CreateCategoryRequestDto createCategoryRequestDto) {
+        return categoryService.createCategory( createCategoryRequestDto);
     }
     @PostMapping("/makeCategoryActive")
     @PreAuthorize("hasRole('ADMIN')")

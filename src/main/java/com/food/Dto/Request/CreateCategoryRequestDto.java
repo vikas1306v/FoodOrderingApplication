@@ -20,7 +20,6 @@ public class CreateCategoryRequestDto
     private String categoryDescription;
     @JsonProperty("category_image")
     private String categoryImage;
-
     @JsonProperty("category_type")
     private String categoryType;//veg or non-veg
 

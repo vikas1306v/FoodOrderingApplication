@@ -1,6 +1,6 @@
 package com.food.Filter;
 
-import com.food.Exception.TokenNotGiven;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.food.Services.JwtService;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.FilterChain;
@@ -19,6 +19,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -26,10 +28,11 @@ import java.util.Arrays;
 public class RequestFilter extends OncePerRequestFilter {
     private final JwtService  jwtService;
     private final UserDetailsService userDetailsService;
+
     String [] bypassUrl={"/auth/register",
             "/auth/login",
             "/image",
-            "/auth/google"};
+            "/auth/google/signup"};
     @Override
     protected void doFilterInternal(@Nonnull HttpServletRequest request,
                                     @Nonnull HttpServletResponse response,
@@ -44,9 +47,15 @@ public class RequestFilter extends OncePerRequestFilter {
         String token=request.getHeader("Authorization");
         if(token==null)
         {
-            throw new TokenNotGiven("Token not given");
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Token not provided");
+            String jsonResponse = objectMapper.writeValueAsString(errorResponse);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.getWriter().write(jsonResponse);
+            return;
         }
-
         if(!token.startsWith("Bearer "))
         {
             filterChain.doFilter(request,response);

@@ -32,31 +32,29 @@ public class CategoryService
     private final ImageService imageService;
     private final ItemRepository itemRepository;
 
-    public ResponseEntity<GenericResponseBean<?>> createCategory(MultipartFile multipartFile, CreateCategoryRequestDto createCategoryRequestDto) {
+    public ResponseEntity<GenericResponseBean<?>> createCategory(CreateCategoryRequestDto createCategoryRequestDto) {
         try {
-            String imageUrl = imageService.upload(multipartFile);
             Categories category = Categories.builder()
                     .categoryName(createCategoryRequestDto.getCategoryName())
                     .categoryDescription(createCategoryRequestDto.getCategoryDescription())
-                    .categoryImage(imageUrl)
                     .isCategoryActive(false)
                     .categoryType(createCategoryRequestDto.getCategoryType())
                     .build();
             categoryRepository.save(category);
-            return ResponseEntity.status(HttpStatus.CREATED).body(GenericResponseBean.builder().message("Category created successfully").status(true).build());}
+            return ResponseEntity.status(HttpStatus.CREATED).body(GenericResponseBean.builder().message("Category created successfully").status(true).build());
+        }
         catch(Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(GenericResponseBean.builder().message("Category creation failed").status(false).build());}}
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(GenericResponseBean.builder().message("Category creation failed").status(false).build());}
+    }
 
     public ResponseEntity<GenericResponseBean<?>> makeActive(Integer id) {
-        if(id==null)
+        if (id == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(GenericResponseBean.builder().message("Id cannot be null").status(false).build());
-        try {
-            Categories category= categoryRepository.findById(id).orElseThrow(() -> new FoodOrderingMainException("Category not found with this id"));
-            category.setIsCategoryActive(true);
-            categoryRepository.save(category);
-            return ResponseEntity.status(HttpStatus.OK).body(GenericResponseBean.builder().message("Category activated successfully").status(true).build());}
-        catch(Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(GenericResponseBean.builder().message("Category activation failed").status(false).build());}
+        Categories category = categoryRepository.findById(id).orElseThrow(() -> new FoodOrderingMainException("Category not found with this id"));
+        category.setIsCategoryActive(true);
+        categoryRepository.save(category);
+        return ResponseEntity.status(HttpStatus.OK).body(GenericResponseBean.builder().message("Category activated successfully").status(true).build());
+
     }
 
     @Transactional
