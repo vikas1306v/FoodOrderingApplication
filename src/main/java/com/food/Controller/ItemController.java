@@ -21,12 +21,17 @@ public class ItemController
 {
 
     private final ItemService itemService;
-
-    @PostMapping("/create")
-    public ResponseEntity<GenericResponseBean<?>> addItem(@RequestParam("file") MultipartFile multipartFile, @RequestParam("category_id") Integer categoryId, @RequestBody CreateItemRequestDto createItemRequestDto)
-    {
-      return itemService.createItem(multipartFile,categoryId,createItemRequestDto);
+    @PostMapping("/create/{category_id}")
+    public ResponseEntity<GenericResponseBean<?>> addItem( @PathVariable("category_id") Integer id , @RequestBody CreateItemRequestDto createItemRequestDto) {
+        return itemService.createItem(id,createItemRequestDto);
     }
+    @PostMapping("/search")
+    public ResponseEntity<GenericResponseBean<?>> searchItem(@RequestParam("search") String search)
+    {
+        return itemService.searchItem(search);
+    }
+
+
 
 
 

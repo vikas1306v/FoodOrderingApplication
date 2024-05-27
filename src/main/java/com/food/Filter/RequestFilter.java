@@ -32,7 +32,7 @@ public class RequestFilter extends OncePerRequestFilter {
     String [] bypassUrl={"/auth/register",
             "/auth/login",
             "/image",
-            "/auth/google/signup"};
+            "/auth/google/signup","/payment/pay"};
     @Override
     protected void doFilterInternal(@Nonnull HttpServletRequest request,
                                     @Nonnull HttpServletResponse response,
@@ -48,8 +48,10 @@ public class RequestFilter extends OncePerRequestFilter {
         if(token==null)
         {
             ObjectMapper objectMapper = new ObjectMapper();
-            Map<String, String> errorResponse = new HashMap<>();
+            Map<String, Object> errorResponse = new HashMap<>();
             errorResponse.put("error", "Token not provided");
+            errorResponse.put("message", "Please provide a valid token");
+            errorResponse.put("status",false);
             String jsonResponse = objectMapper.writeValueAsString(errorResponse);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType("application/json");

@@ -15,9 +15,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -39,7 +41,7 @@ public class SecurityConfig
     private final AuthenticationProvider authenticationProvider ;
 
     String [] bypassUrl={"/auth/**",
-            "/image/**"};
+            "/image/**","/payment/**"};
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
       http.csrf(AbstractHttpConfigurer::disable)
@@ -50,6 +52,7 @@ public class SecurityConfig
           sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).
               authenticationProvider(authenticationProvider).
               addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class);
+//      http.headers((headers) -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
        return http.build();
     }
 
