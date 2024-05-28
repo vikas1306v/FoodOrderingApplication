@@ -143,7 +143,6 @@ public class CategoryService
                     .itemImage(item.getItemImage())
                     .isItemActive(item.getIsItemActive())
                     .isItemInStock(item.getIsItemInStock())
-                    .itemQuantity(item.getItemQuantity())
                     .itemDiscount(item.getItemDiscount())
                     .itemDiscountType(item.getItemDiscountType())
                     .itemDistributionType(item.getItemDistributionType())
