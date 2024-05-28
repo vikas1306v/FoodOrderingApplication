@@ -24,7 +24,6 @@ public class Coupon
     @Enumerated(EnumType.STRING)
     private CouponType couponType;
     private Integer usageLimit;
-    private String itemIds;
     private boolean isActive;
     private Double minCartAmount;
 

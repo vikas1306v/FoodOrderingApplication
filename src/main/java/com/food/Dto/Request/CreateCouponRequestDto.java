@@ -23,6 +23,5 @@ public class CreateCouponRequestDto {
     private CouponDiscountType couponDiscountType;
     private CouponType couponType;
     private Integer usageLimit;
-    private String itemIds;
     private Double minCartAmount;
 }

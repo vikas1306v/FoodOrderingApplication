@@ -10,6 +10,6 @@ public enum CouponType
 {
     NewUser,
     CartAmountSpecific,
-    ItemSpecific,
+
 
 }
