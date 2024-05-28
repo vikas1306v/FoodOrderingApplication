@@ -9,8 +9,7 @@ import lombok.RequiredArgsConstructor;
 public enum CouponType
 {
     NewUser,
-    ExistingUser,
-    AllUser,
-    ComboItems
+    CartAmountSpecific,
+    ItemSpecific,
 
 }

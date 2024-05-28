@@ -19,6 +19,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
     private final EntityManager entityManager;
     @Override
     public List<Item> searchItem(String name) {
+        System.out.println(name);
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Item> cq=cb.createQuery(Item.class);
         Root<Item> stud=cq.from(Item.class);

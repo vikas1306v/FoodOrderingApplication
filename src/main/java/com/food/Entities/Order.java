@@ -29,7 +29,8 @@ public class Order
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer orderId;
+    private Integer id;
+    private String orderId;
     private LocalDate orderDate;
     private LocalDate orderDeliveryDate;
     private LocalDate orderExpectedDeliveryDate;
@@ -50,7 +51,6 @@ public class Order
     @OneToMany(mappedBy = "order")
     @JsonManagedReference
     private List<Item> items ;
-
 
     @ManyToOne
     @JsonBackReference

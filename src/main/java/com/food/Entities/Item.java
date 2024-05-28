@@ -31,7 +31,6 @@ public class Item
     private String itemImage;
     private Boolean isItemActive;
     private Boolean isItemInStock;
-    private Integer itemQuantity;
     private Double itemDiscount;
     private String itemDiscountType;//percentage or amount
     private String itemDistributionType;//single or combo

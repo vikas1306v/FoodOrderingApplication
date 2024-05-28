@@ -1,9 +1,6 @@
 package com.food;
 
-import com.food.Services.RazorPayPaymentService;
-import com.razorpay.RazorpayException;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest

@@ -46,12 +46,12 @@ public class  User implements UserDetails
     @JsonManagedReference
     private List<Order> order;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_coupon",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "coupon_id"))
-    private Set<Coupon> coupons = new HashSet<>();
+//    @ManyToMany
+//    @JoinTable(
+//            name = "user_coupon",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "coupon_id"))
+//    private Set<Coupon> coupons = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

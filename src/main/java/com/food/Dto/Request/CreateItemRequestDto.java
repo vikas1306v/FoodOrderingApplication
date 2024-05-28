@@ -28,6 +28,9 @@ public class CreateItemRequestDto {
     @JsonProperty("item_price")
     private BigDecimal itemPrice;
 
+    @JsonProperty("initial_item_quantity")
+    private Integer itemQuantity;
+
     @JsonProperty("item_discount")
     private Double itemDiscount;
 

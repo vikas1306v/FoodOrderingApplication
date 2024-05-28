@@ -22,17 +22,21 @@ public class ItemController
 
     private final ItemService itemService;
     @PostMapping("/create/{category_id}")
-    public ResponseEntity<GenericResponseBean<?>> addItem( @PathVariable("category_id") Integer id , @RequestBody CreateItemRequestDto createItemRequestDto) {
+    public ResponseEntity<GenericResponseBean<Item>> addItem( @PathVariable("category_id") Integer id , @RequestBody CreateItemRequestDto createItemRequestDto) {
         return itemService.createItem(id,createItemRequestDto);
     }
-    @PostMapping("/search")
-    public ResponseEntity<GenericResponseBean<?>> searchItem(@RequestParam("search") String search)
-    {
+    @GetMapping("/search")
+    public ResponseEntity<GenericResponseBean<?>> searchItem(@RequestParam("search") String search) {
         return itemService.searchItem(search);
     }
-
-
-
+    @PostMapping("/make/live/{item_id}")
+    public ResponseEntity<GenericResponseBean<Item>> makeItemLive(@PathVariable("item_id") Integer id) {
+        return itemService.makeItemLive(id);
+    }
+    @GetMapping("/alloutofstock")
+    public ResponseEntity<GenericResponseBean<?>> getAllOutOfStockItems() {
+        return itemService.getAllOutOfStockItems();
+    }
 
 
 }
