@@ -24,5 +24,9 @@ public class CouponController {
     public ResponseEntity<GenericResponseBean<List<EligibleCouponResponseDto>>>  getEligibleCoupon(@PathVariable Integer userId, @PathVariable Integer cartId) {
         return couponService.checkForEligibleCoupons(userId, cartId);
     }
+    @PostMapping("/make-active/{couponId}")
+    public ResponseEntity<GenericResponseBean<Coupon>> makeCouponActive(@PathVariable Integer couponId) {
+        return couponService.makeCouponActive(couponId);
+    }
 
 }

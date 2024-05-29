@@ -27,7 +27,7 @@ public class Item
     private String itemName;
     private String itemDescription;
     private List<String> itemIngredients;
-    private BigDecimal itemPrice;
+    private Double itemPrice;
     private String itemImage;
     private Boolean isItemActive;
     private Boolean isItemInStock;
@@ -40,15 +40,9 @@ public class Item
     @JoinColumn(name = "category_id")
     private Categories categories;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JsonBackReference
-    @JoinColumn(name = "order_id")
-    private Order order;
-
-    @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @ManyToMany(mappedBy = "items")
+    @JsonIgnore
+    private Set<Order> orders = new HashSet<>();
 
     @OneToMany(mappedBy = "item")
     @JsonManagedReference

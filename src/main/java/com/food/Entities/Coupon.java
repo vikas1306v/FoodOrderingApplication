@@ -20,15 +20,13 @@ public class Coupon
     private String couponCode;
     private String couponDescription;
     private Double couponDiscount;
+    @Enumerated(EnumType.STRING)
     private CouponDiscountType couponDiscountType;
     @Enumerated(EnumType.STRING)
     private CouponType couponType;
     private Integer usageLimit;
     private boolean isActive;
     private Double minCartAmount;
-
-//    @ManyToMany(mappedBy = "coupons")
-//    private Set<User> users = new HashSet<>();
 
 
 }

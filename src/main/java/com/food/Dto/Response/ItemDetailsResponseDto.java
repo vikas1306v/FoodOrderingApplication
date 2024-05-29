@@ -2,10 +2,7 @@ package com.food.Dto.Response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,6 +10,8 @@ import java.util.List;
 @Builder
 @Setter
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ItemDetailsResponseDto
@@ -21,7 +20,7 @@ public class ItemDetailsResponseDto
     private String itemName;
     private String itemDescription;
     private List<String> itemIngredients;
-    private BigDecimal itemPrice;
+    private Double itemPrice;
     private String itemImage;
     private Boolean isItemActive;
     private Boolean isItemInStock;

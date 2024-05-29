@@ -13,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Map;
-
 @Service
 @RequiredArgsConstructor
 public class PincodeService
@@ -69,21 +67,20 @@ public class PincodeService
     }
 
     public ResponseEntity<GenericResponseBean<?>> isPincodeDeliverable(String pincodeNumber) {
-        try{
-            Pincode pincode = pincodeRepository.findByPincodeNumber(pincodeNumber).orElseThrow(() -> new FoodOrderingMainException("This Pincode is not Deliverable"));
-            if(pincode!=null&&pincode.getIsPincodeNumberActive())
-            {
-                return ResponseEntity.status(HttpStatus.OK).body(
-                        GenericResponseBean.builder().message("This Pincode Is Deliverable").status(true)
-                                .build()
-                );
-            }else{
-                throw new FoodOrderingMainException(" Service UnAvailable To This Pincode");
-            }
-
-        }catch (Exception e)
-        {
-            throw new FoodOrderingMainException("Something Went Wrong While Checking Is Pincode Deliverable");
+        boolean ans=checkForPincodeDeliverable(pincodeNumber);
+        if(ans) {
+            return ResponseEntity.status(HttpStatus.OK).body(GenericResponseBean.builder()
+                    .message("Pincode is Deliverable").status(true).build());
         }
+        else {
+            return ResponseEntity.status(HttpStatus.OK).body(GenericResponseBean.builder()
+                    .message("Pincode is Not Deliverable").status(false).build());
+        }
+
+    }
+    public boolean checkForPincodeDeliverable(String pincodeNumber)
+    {
+        Pincode pincode = pincodeRepository.findByPincodeNumber(pincodeNumber).orElse(null);
+        return pincode != null && pincode.getIsPincodeNumberActive();
     }
 }

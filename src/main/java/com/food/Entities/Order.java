@@ -13,6 +13,7 @@ import lombok.Setter;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -31,10 +32,9 @@ public class Order
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String orderId;
-    private LocalDate orderDate;
-    private LocalDate orderDeliveryDate;
-    private LocalDate orderExpectedDeliveryDate;
-    private LocalTime orderTime;
+    private LocalDateTime orderDate;
+    private LocalDateTime orderDeliveryDate;
+    private LocalDateTime orderExpectedDeliveryDate;
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
     private Double orderTotalAmount;
@@ -48,9 +48,14 @@ public class Order
     @OneToOne(mappedBy = "order")
     private Payment payment;
 
-    @OneToMany(mappedBy = "order")
-    @JsonManagedReference
-    private List<Item> items ;
+    @ManyToMany
+    @JoinTable(
+            name = "order_items",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
+    @JsonManagedReference(value = "order-item")
+    private Set<Item> items = new HashSet<>();
 
     @ManyToOne
     @JsonBackReference

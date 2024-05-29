@@ -79,6 +79,7 @@ public class CouponService
            eligibleCoupon.forEach(coupon -> {
                EligibleCouponResponseDto eligibleCouponResponseDto1 = new EligibleCouponResponseDto();
                eligibleCouponResponseDto1.setCouponName(coupon.getCouponName());
+               eligibleCouponResponseDto1.setId(coupon.getId());
                eligibleCouponResponseDto1.setCouponCode(coupon.getCouponCode());
                eligibleCouponResponseDto1.setCouponDescription(coupon.getCouponDescription());
                eligibleCouponResponseDto1.setCouponDiscount(coupon.getCouponDiscount());
@@ -105,6 +106,7 @@ public class CouponService
                 }
                 break;
             case CartAmountSpecific:
+                System.out.println("hello");
                 Double totalAmount = cart.getCartTotal();
                 boolean ans=false;
                 UserCoupons userCoupons = userCouponsRepository.findByUserIdAndCouponId(user.getId(), coupon.getId()).orElse(null);
@@ -123,4 +125,10 @@ public class CouponService
         return null;
     }
 
+    public ResponseEntity<GenericResponseBean<Coupon>> makeCouponActive(Integer couponId) {
+        Coupon coupon = couponRepository.findById(couponId).orElseThrow(() -> new RuntimeException("Coupon not found"));
+        coupon.setActive(true);
+        Coupon save = couponRepository.save(coupon);
+        return ResponseEntity.status(HttpStatus.OK).body(GenericResponseBean.<Coupon>builder().data(save).message("Coupon activated successfully").build());
+    }
 }

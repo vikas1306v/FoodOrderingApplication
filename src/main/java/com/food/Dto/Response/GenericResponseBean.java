@@ -27,8 +27,6 @@ public class GenericResponseBean<T>
     private String message;
     @JsonProperty("status")
     private boolean status;
-    @JsonProperty("result")
-    private List<T> results;
     @JsonProperty("page")
     private PageBean page;
 }

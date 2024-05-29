@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EligibleCouponResponseDto {
+    private Integer id;
     private String couponName;
     private String couponCode;
     private String couponDescription;
