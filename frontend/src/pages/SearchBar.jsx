@@ -11,27 +11,37 @@ const SearchBar = () => {
   const handleChange = (e) => {
     setsearch(e.target.value);
   };
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/foodapp/item/search?search=${search}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmhheUAxMjM1NkBnbWFpbC5jb20iLCJpYXQiOjE3MTcxMTA3MzYsImV4cCI6MTcxNzE5NzEzNn0.MAlwgGvsEE709h0jKUq9t7_EYbtqhFclPXQVlXMmY_E`
+        }
+      });
+
+      const data = await response.json();
+      setsearchData(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 
   useEffect(() => {
     if (search !== "") {
-      fetch(`https://picsum.photos/v2/list?page=2&limit=${currentPage*10}`)
-      .then((res) => res.json())
-      .then((data) => {
-          // Assuming `setsearchData` is a function to set the search data
-          setsearchData(data);
-      })
-      .catch((error) => {
-          console.error('Error fetching data:', error);
-      });
-  
+      fetchData();
     }
-  }, [search,currentPage]);
- 
+  }, [search, currentPage]);
+
 
   return (
     <>
-      <div className="mt-28 mb-10" >
-        <form class=" mx-auto"  style={{width:'860px'}}>
+      <div className="mt-16 mb-10"
+
+      >
+        <form class=" mx-auto" style={{ width: '860px' }}>
           <label
             for="default-search"
             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -66,17 +76,17 @@ const SearchBar = () => {
               required
             />
           </div>
-        <div className="search_result mt-4 flex flex-col space-y-3 ">
-            {searchData.map((data, index) =>  <SearchMainCard data={data} key={index}/>
+          <div className="search_result mt-4 flex flex-col space-y-3 ">
+            {searchData.map((data, index) => <SearchMainCard data={data} key={index} />
             )}
           </div>
-         
+
         </form>
         <div className="flex overflow-x-auto sm:justify-center">
-      <Pagination currentPage={currentPage} totalPages={100} onPageChange={onPageChange} showIcons />
-    </div>
+          <Pagination currentPage={currentPage} totalPages={100} onPageChange={onPageChange} showIcons />
+        </div>
       </div>
-      
+
     </>
   );
 };
