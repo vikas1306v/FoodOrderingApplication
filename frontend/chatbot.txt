@@ -1,0 +1,45 @@
+{
+    "questions": [
+      {
+        "question": "What types of cuisine do you offer?",
+        "answer": "We offer a variety of cuisines including Italian, Mexican, Chinese, and more."
+      },
+      {
+        "question": "Do you have vegetarian options?",
+        "answer": "Yes, we have a range of delicious vegetarian options available."
+      },
+      {
+        "question": "How can I place an order?",
+        "answer": "You can place an order through our website or mobile app. Simply browse our menu, select the items you'd like, and proceed to checkout."
+      },
+      {
+        "question": "What are your delivery hours?",
+        "answer": "We deliver from 11:00 AM to 10:00 PM every day."
+      },
+      {
+        "question": "Do you offer gluten-free options?",
+        "answer": "Yes, we offer gluten-free options for our customers with dietary restrictions."
+      },
+      {
+        "question": "How long does delivery usually take?",
+        "answer": "Delivery times may vary depending on your location and order volume. On average, deliveries take around 30-45 minutes."
+      },
+      {
+        "question": "Can I customize my order?",
+        "answer": "Yes, many of our menu items can be customized to your preferences. Simply let us know your preferences when placing your order."
+      },
+      {
+        "question": "What payment methods do you accept?",
+        "answer": "We accept various payment methods including credit/debit cards, PayPal, and cash on delivery."
+      },
+      {
+        "question": "Do you offer discounts for large orders?",
+        "answer": "Yes, we offer discounts for large orders. Please contact our customer support team for more information."
+      },
+      {
+        "question": "Is there a minimum order amount for delivery?",
+        "answer": "Yes, we have a minimum order amount for delivery. It may vary depending on your location."
+      }
+    ]
+  }
+  

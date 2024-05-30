@@ -1,0 +1,27 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
+.navbar {
+  position: fixed;
+ 
+  background-color: #333;
+  z-index: 2000;
+}
+
+
+
+/* category images */
+.category-image {
+  width: 90px;
+  height: 90px;
+  /* object-fit: cover; */
+  border-radius: 0.5rem;
+}
+
+
+.error-page {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}

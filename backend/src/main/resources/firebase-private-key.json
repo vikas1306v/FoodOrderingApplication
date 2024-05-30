@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "foodorderingapp-40f4e",
+  "private_key_id": "3079008ad0bc2fe8a5ce17c1227af2d6711ecc6d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDTO0+Un5mJHMFx\nXGaNMT3inVzoo4AmilOkZSuJxqmgkL3ch7R0B0KtzQoewBo9lVM4U8mqRQ1BVbC+\nDlqkbx9qC7Lmt51M6BrIaj+vKabOOS4fWEhohP86Eq/3/c37p1nDEgaHZeoVXWTu\n/cVX17ZzWQobudwR+WFwJl0Bz+eF9uUD2PRKvDms5yPvRKXOvmSb7r7UuUCzX/a+\nd1MaN04xILcXzrG/fnBcnh+Zt07N0xnx4OeKLrAJnDzAyo+ztF/BDuAgekykAml1\nsr7o7N8tHOV6NEL903hilaiquCp3NRDxSE7yQkld5doldfAyurMMT5HmVuxK6BaJ\nCRGAaxUJAgMBAAECggEACZZLDd1SjCEUfI8rjmP6QZNP2LU3B0jG9BKtb7LnFwUK\nwPwdyhhcQ+Qm/e9NIZdp8AgJgqNgryLzAyVGoujyPY9rXsJdrtRoBsmfu1UCH6ED\nwWNx4eCLbvjTKMfJtg7J6asjRbjv72lOP/SfpNWDD+guJ8T/QoeVjxAGr6LeiLtv\nW8dl2I+WfmLT/r28BSPIf6bRxDEiBz4ylXt8BKSxAAzyCwrkiaCQ+Bj9ADDRFy6U\ncG3436GQ5aOisg92w4JDKx+mZwugqREp+Y/Bs5teV2GioSYES9d8drbJrEaBKEzB\nKaSxjKRO65caHGrtR/ByavEynCUyesjsdRngI/u/yQKBgQDszW8/xSUZS4257aNn\nkuWVeUU7w3KbyHoYCio4h129kNxoePoqnW32y0Zp02TDWaGObNcWp4+YDMIr932C\nDHpXsdNKrBm7KD76/LOB1NebxTjArZJVB9ZGJZuzHcP5K7u+2PxqlTwWS6mfNuT/\nl/772VNqrHKbzQRXKvvD1KkDZQKBgQDkWy7/h+t3Isuh5kjU/Lw5Qk6BY2P5L47q\nkNYpfrFRN+r2tMhBuFMfs6+o74UrcthJCKOhf2TTSk6ynU7gNpvJMuwZwzXGvalD\nos38oKn85a1RyW+AEXZkcJf76fmIy+7ue8zB85tjO7d1MjW8rQCfdG1o/kP2/F7M\nqYuVM/ca1QKBgDJdg2Lp2Hkn064O+ClIWiJPl8UdTdwKaMWCK/a3+90c2XQy/upf\nb4sFMyXA+3Z9MtprFdhQrT7mv8nAKualJsROIyWHszVWWwbhBoD/txf/e5GnmS8S\nqqVizFntY8g0YAs4dX9p3EzVrO8bKtueBXKlh5NxuDKhCWJM1x2Qtp3tAoGADxAg\nuoRZuOMXsZdCKKJ/O/uuuAQ5XP+RGtHw/o233pakrh9gsk0ZVpcAuFEMZMBPmgmy\n2X1Qxks5g7iyskGH5y6vukdRLcnm92ou0kI61E7GLwXtj/IW8CspK1nUtvxUx3Bt\nIkISdupCgL2OI+L5josciHd1Pj6JdlCcv3vNCf0CgYAiLHuNyZKSxjpX0L69lMa+\npRQdobLLVbgT+eK429aZ2KZWGEMNsCRwlv4sm/FkvPdCfGyRmUCGkszdYA2t9AZ4\nO8ccymzJmfwXf+2ym/dnhRD91ag3DMUm0pthpZld57E9pmSDdOfoxgjF6NHrPHOx\nuAJBD0lEcv/i+WDceD9rcg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-5emv0@foodorderingapp-40f4e.iam.gserviceaccount.com",
+  "client_id": "117122238735506966217",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-5emv0%40foodorderingapp-40f4e.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
