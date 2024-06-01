@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const data=useSelector((state) => state.user);
+  useEffect(() => {
+    if (data.token!=null) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [data.token]);
+  
   return (
     <>
-      <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+   { isLoggedIn ?   <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
           <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
             Shopping Cart
@@ -255,7 +266,18 @@ const Cart = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> : <div class="flex items-center flex-col justify-center h-96">
+        <p class="text-xl font-semibold text-gray-900 dark:text-white">
+          You are not logged in
+        </p>
+        <button type="button" class="focus:outline-none mt-5 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700
+         dark:focus:ring-purple-900">
+          <Link to="/login" >Login</Link>
+         </button>
+        
+      </div>
+
+   }
     </>
   );
 };

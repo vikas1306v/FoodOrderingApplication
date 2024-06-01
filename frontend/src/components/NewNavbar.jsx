@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 // import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import cart_img from "../assets/NewAssets/bag_icon.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const NewNavbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -87,7 +89,10 @@ const NewNavbar = () => {
         </ul>
         <div className="hidden lg:flex lg:items-center lg:space-x-4">
           {/* <ShoppingCartIcon/> */}
-        <Link to="/cart">cart</Link>
+          
+          
+          
+        <Link to="/cart"><img src={cart_img}></img></Link>
           <Link
             className="py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold rounded-xl transition duration-200"
             to="/login"

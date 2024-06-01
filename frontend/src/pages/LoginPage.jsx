@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import TasteHeaven from "../assets/TasteHeavenLogo.png";
 import { Link } from "react-router-dom";
 import { Alert, Snackbar, Button } from '@mui/material';
-
+import {useDispatch} from 'react-redux'
+import { addUser } from "../redux/slices/UserSlice";
 
 export default function Login() {
+  const dispatch=useDispatch()
+  const location=useLocation()
+  const from = location.state?.from?.pathname || "/";
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -20,32 +24,33 @@ export default function Login() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
     const url = "http://localhost:8080/foodapp/auth/login";
-
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(loginData),
-    });
-
-    const data = await response.json();
-    if (data.status == true) {
-      setAlertMessage('Login successful!');
-      setAlertOpen(true);
-      setSeverity("success")
-      navigate("/");
-    } else {
-      setAlertMessage('Login failed!');
-      setAlertOpen(true);
-      setSeverity("error")
-      
-      setLoginData({
-        email: "",
-        password: "",
+    e.preventDefault();
+  
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
       });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      if (data.status) {
+        dispatch(addUser(data.data));
+        navigate(from, { replace: true });
+      } else {
+        console.error('Login failed:', data.message);
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
     }
     
   };

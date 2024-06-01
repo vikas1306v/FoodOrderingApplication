@@ -6,17 +6,17 @@ const Items = () => {
 
   return (
     <>
-      <div className="flex justify-center">
-        <section class="text-gray-600 body-font w-3/4">
-          <div class="container py-4 ">
-            <div class="flex flex-wrap mx-2">
-              {arr.map(() => (
-                <FilterPageItems />
-              ))}
+      <div class="flex justify-center">
+    <section class="text-gray-600 body-font w-3/4">
+        <div class="container py-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mx-2">
+                {arr.map((item, index) => (
+                    <FilterPageItems key={index} />
+                ))}
             </div>
-          </div>
-        </section>
-      </div>
+        </div>
+    </section>
+</div>
     </>
   );
 };

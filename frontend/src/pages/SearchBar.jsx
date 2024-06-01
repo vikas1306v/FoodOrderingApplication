@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import SearchMainCard from "../components/SearchMainCard";
 import { Pagination } from "flowbite-react";
+import { set } from "firebase/database";
 const SearchBar = () => {
   const [search, setsearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const onPageChange = (page) => setCurrentPage(page);
 
   const [searchData, setsearchData] = useState([]);
+  const[error,setError]=useState(false);
+  const [isData, setIsData] = useState(false);
 
   const handleChange = (e) => {
     setsearch(e.target.value);
@@ -22,9 +25,22 @@ const SearchBar = () => {
       });
 
       const data = await response.json();
-      setsearchData(data.data);
+      if(data.status==false){
+        setIsData(false);
+        setError(true);
+        return;
+      }
+      if(data.data.length>0&&data.status==true){
+        setError(false);    
+        setIsData(true);
+        setsearchData(data.data);
+      }else{
+        setError(true);
+        setIsData(false);
+      }
     } catch (error) {
-      console.log(error);
+      setError(true);
+      setIsData(false);
     }
   }
 
@@ -76,15 +92,21 @@ const SearchBar = () => {
               required
             />
           </div>
-          <div className="search_result mt-4 flex flex-col space-y-3 ">
-            {searchData.map((data, index) => <SearchMainCard data={data} key={index} />
-            )}
+          <div className="search_result mt-4 flex flex-col  ">      
+            {error==false&&isData==true?searchData.map((data, index) => <SearchMainCard data={data} key={index} />
+            ):null}
+            {
+error==true&&isData==false?
+              <h1 className="text-2xl ml-[360px] font-bold">No Data Found</h1>:null
+            }
           </div>
 
         </form>
-        <div className="flex overflow-x-auto sm:justify-center">
-          <Pagination currentPage={currentPage} totalPages={100} onPageChange={onPageChange} showIcons />
-        </div>
+       {
+         error==false&&isData==true?<div className="flex overflow-x-auto sm:justify-center">
+         <Pagination currentPage={currentPage} totalPages={100} onPageChange={onPageChange} showIcons />
+       </div>:null
+       }
       </div>
 
     </>
