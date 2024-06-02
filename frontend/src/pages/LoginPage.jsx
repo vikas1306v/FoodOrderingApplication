@@ -7,6 +7,7 @@ import {useDispatch} from 'react-redux'
 import { addUser } from "../redux/slices/UserSlice";
 
 export default function Login() {
+
   const dispatch=useDispatch()
   const location=useLocation()
   const from = location.state?.from?.pathname || "/";

@@ -17,6 +17,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/item")
+@CrossOrigin("*")
 public class ItemController
 {
 
@@ -26,8 +27,10 @@ public class ItemController
         return itemService.createItem(id,createItemRequestDto);
     }
     @GetMapping("/search")
-    public ResponseEntity<GenericResponseBean<?>> searchItem(@RequestParam("search") String search) {
-        return itemService.searchItem(search);
+    public ResponseEntity<GenericResponseBean<?>> searchItem(@RequestParam("search") String search,
+                                                             @RequestParam(value="page",defaultValue = "1")Integer page,
+                                                             @RequestParam(value = "size",defaultValue = "5") Integer size){
+        return itemService.searchItem(search,page,size);
     }
     @PostMapping("/make/live/{item_id}")
     public ResponseEntity<GenericResponseBean<Item>> makeItemLive(@PathVariable("item_id") Integer id) {
@@ -36,6 +39,10 @@ public class ItemController
     @GetMapping("/alloutofstock")
     public ResponseEntity<GenericResponseBean<?>> getAllOutOfStockItems() {
         return itemService.getAllOutOfStockItems();
+    }
+    @GetMapping("/all")
+    public ResponseEntity<GenericResponseBean<?>> getAllItems() {
+        return itemService.getAllItems();
     }
 
 

@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-// import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import cart_img from "../assets/NewAssets/bag_icon.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/slices/UserSlice";
 const NewNavbar = () => {
+  const userLoginData=useSelector(state=>state.user)
+  const [user,setUser]=useState(false)
+  const dispatch=useDispatch()
+  useEffect(()=>{
+    if(userLoginData.token!=null){
+      setUser(true)
+    }else{
+      setUser(false)
+    }
+  },[userLoginData.token])
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -13,6 +23,9 @@ const NewNavbar = () => {
   const closeMenu = () => {
     setMenuOpen(false);
   };
+  const handleLogout=()=>{
+    dispatch(logout())
+  }
 
   return (
     <>
@@ -88,23 +101,31 @@ const NewNavbar = () => {
           </li>
         </ul>
         <div className="hidden lg:flex lg:items-center lg:space-x-4">
-          {/* <ShoppingCartIcon/> */}
-          
-          
-          
         <Link to="/cart"><img src={cart_img}></img></Link>
-          <Link
-            className="py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold rounded-xl transition duration-200"
-            to="/login"
-          >
-            Sign In
-          </Link>
-          <Link
-            className="py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200"
-            to="/register"
-          >
-            Sign Up
-          </Link>
+         {
+          user!=true? <Link
+          className="py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold rounded-xl transition duration-200"
+          to="/login"
+        >
+          Sign In
+        </Link>:null
+         }
+         {
+          user!=true? <Link
+          className="py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200"
+          to="/register"
+        >
+          Sign Up
+        </Link>:null
+         }
+          {
+          user==true? <button
+          className="py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200"
+          onClick={handleLogout}
+        >
+          Logout
+        </button>:null
+         }
         </div>
       </nav>
       {menuOpen && (

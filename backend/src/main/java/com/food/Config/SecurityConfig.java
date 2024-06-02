@@ -41,7 +41,7 @@ public class SecurityConfig
     private final AuthenticationProvider authenticationProvider ;
 
     String [] bypassUrl={"/auth/**",
-            "/image/**","/payment/**"};
+            "/image/**","/payment/**","/item/search","/item/all"};
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
       http.csrf(AbstractHttpConfigurer::disable)

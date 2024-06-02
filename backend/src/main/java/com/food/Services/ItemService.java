@@ -2,6 +2,7 @@ package com.food.Services;
 
 import com.food.Dto.Request.CreateItemRequestDto;
 import com.food.Dto.Response.GenericResponseBean;
+import com.food.Dto.Response.PageBean;
 import com.food.Entities.Categories;
 import com.food.Entities.Item;
 import com.food.Entities.ItemHistory;
@@ -11,6 +12,9 @@ import com.food.Repository.ItemHistoryRepository;
 import com.food.Repository.ItemRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -59,14 +63,37 @@ public class ItemService
         }
     }
 
-    public ResponseEntity<GenericResponseBean<?>> searchItem(String search)
-    {
-        List<Item> itemList = itemRepository.searchItem(search);
-        if(!itemList.isEmpty())
-            return ResponseEntity.status(HttpStatus.OK).body(GenericResponseBean.builder().message("Item Found").status(true).data(itemList).build());
-        else
+    public ResponseEntity<GenericResponseBean<?>> searchItem(String search, Integer page, Integer size) {
+        if (page < 0) page = 0;
+        if (size <= 0) size = 5;
+
+        PageRequest pageRequest = PageRequest.of(page-1, size);
+        Page<Item> itemPage = itemRepository.findByItemNameContaining(search, pageRequest);
+        List<Item> itemList = itemPage.getContent();
+        if(page>itemPage.getTotalPages())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(GenericResponseBean.builder().message("Item Not Found").status(false).build());
+
+        PageBean pageBean = new PageBean();
+        pageBean.setPageNumber(page);
+        pageBean.setPageSize(size);
+        pageBean.setTotalRecords(itemPage.getTotalElements());
+        pageBean.setTotalPage(itemPage.getTotalPages());
+
+        GenericResponseBean<List<Item>> responseBean = new GenericResponseBean<>();
+        responseBean.setPage(pageBean);
+
+        if (!itemList.isEmpty()) {
+            responseBean.setData(itemList);
+            responseBean.setMessage("Item Found");
+            responseBean.setStatus(true);
+            return ResponseEntity.status(HttpStatus.OK).body(responseBean);
+        } else {
+            responseBean.setMessage("Item Not Found");
+            responseBean.setStatus(false);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBean);
+        }
     }
+
 
     public ResponseEntity<GenericResponseBean<Item>> makeItemLive(Integer id) {
         Item item = itemRepository.findById(id).orElseThrow(() -> new FoodOrderingMainException("Item Not Found"));
@@ -84,6 +111,15 @@ public class ItemService
 
     public ResponseEntity<GenericResponseBean<?>> getAllOutOfStockItems() {
         List<Item> itemList = itemRepository.findAllByIsItemInStock(false);
+        if(!itemList.isEmpty())
+            return ResponseEntity.status(HttpStatus.OK).body(GenericResponseBean.builder().message("Item Found").status(true).data(itemList).build());
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(GenericResponseBean.builder().message("Item Not Found").status(false).build());
+    }
+
+
+    public ResponseEntity<GenericResponseBean<?>> getAllItems() {
+        List<Item> itemList = itemRepository.findAll();
         if(!itemList.isEmpty())
             return ResponseEntity.status(HttpStatus.OK).body(GenericResponseBean.builder().message("Item Found").status(true).data(itemList).build());
         else

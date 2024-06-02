@@ -32,7 +32,7 @@ public class RequestFilter extends OncePerRequestFilter {
     String [] bypassUrl={"/auth/register",
             "/auth/login",
             "/image",
-            "/auth/google/signup","/payment/pay"};
+            "/auth/google/signup","/payment/pay","/item/search","/item/all"};
     @Override
     protected void doFilterInternal(@Nonnull HttpServletRequest request,
                                     @Nonnull HttpServletResponse response,

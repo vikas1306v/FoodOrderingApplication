@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
 import SearchMainCard from "../components/SearchMainCard";
 import { Pagination } from "flowbite-react";
-import { set } from "firebase/database";
+
+
+
+
 const SearchBar = () => {
   const [search, setsearch] = useState("");
+  const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const onPageChange = (page) => setCurrentPage(page);
-
   const [searchData, setsearchData] = useState([]);
   const[error,setError]=useState(false);
   const [isData, setIsData] = useState(false);
+  const onPageChange = (page) => setCurrentPage(page);
 
   const handleChange = (e) => {
     setsearch(e.target.value);
   };
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/foodapp/item/search?search=${search}`, {
+      const response = await fetch(`http://localhost:8080/foodapp/item/search?search=${search}&page=${currentPage}&size=5`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmhheUAxMjM1NkBnbWFpbC5jb20iLCJpYXQiOjE3MTcxMTA3MzYsImV4cCI6MTcxNzE5NzEzNn0.MAlwgGvsEE709h0jKUq9t7_EYbtqhFclPXQVlXMmY_E`
         }
       });
 
@@ -30,13 +32,11 @@ const SearchBar = () => {
         setError(true);
         return;
       }
-      if(data.data.length>0&&data.status==true){
+      if(data.data.length>0){
         setError(false);    
         setIsData(true);
         setsearchData(data.data);
-      }else{
-        setError(true);
-        setIsData(false);
+        setTotalPages(data.page.total_page);
       }
     } catch (error) {
       setError(true);
@@ -46,10 +46,17 @@ const SearchBar = () => {
 
 
   useEffect(() => {
+    if(search==""){
+      setIsData(false);
+      setError(false);
+      setsearchData([]);
+    }
     if (search !== "") {
       fetchData();
     }
   }, [search, currentPage]);
+
+
 
 
   return (
@@ -104,7 +111,7 @@ error==true&&isData==false?
         </form>
        {
          error==false&&isData==true?<div className="flex overflow-x-auto sm:justify-center">
-         <Pagination currentPage={currentPage} totalPages={100} onPageChange={onPageChange} showIcons />
+         <Pagination color="red" currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} showIcons />
        </div>:null
        }
       </div>

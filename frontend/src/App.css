@@ -68,3 +68,11 @@
   place-items: center;
   height: 100vh;
 }
+.flowbite-pagination .current-page {
+  background-color: blue; /* Set blue color for the current page */
+}
+
+/* Style for next button */
+.flowbite-pagination .next-page {
+  color: green; /* Set green color for the next button */
+}

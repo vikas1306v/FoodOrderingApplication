@@ -35,16 +35,16 @@ public class Item
     private String itemDiscountType;//percentage or amount
     private String itemDistributionType;//single or combo
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonBackReference
     @JoinColumn(name = "category_id")
     private Categories categories;
 
-    @ManyToMany(mappedBy = "items")
+    @ManyToMany(mappedBy = "items",fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Order> orders = new HashSet<>();
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Review> review;
 
