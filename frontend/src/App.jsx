@@ -19,7 +19,7 @@ import 'flowbite/dist/flowbite.min.css';
 function App() {
   return (
     <>
-      <InternetConnetion>
+      {/* <InternetConnetion> */}
        
         <BrowserRouter>
           <Routes>
@@ -35,7 +35,7 @@ function App() {
             <Route path="/forgotpassword" element={<ForgotPassword />} />
           </Routes>
         </BrowserRouter>
-      </InternetConnetion>
+      {/* </InternetConnetion> */}
     </>
   );
 }

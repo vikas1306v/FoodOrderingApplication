@@ -1,35 +1,66 @@
-import React from "react";
-import menu1 from "../assets/NewAssets/menu_1.png";
-import menu2 from "../assets/NewAssets/menu_2.png";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {addItems} from "../redux/slices/ItemSlice"
 
-const categories = [
-  { imgSrc: {menu2}, name: "Pizza" },
-  { imgSrc: "https://www.shutterstock.com/image-photo/fresh-tasty-burger-isolated-on-600nw-705104968.jpg", name: "Burger" },
-  { imgSrc: "https://www.shutterstock.com/image-photo/fresh-tasty-burger-isolated-on-600nw-705104968.jpg", name: "Sushi" },
-  { imgSrc: "https://www.shutterstock.com/image-photo/fresh-tasty-burger-isolated-on-600nw-705104968.jpg", name: "Salad" },
-  { imgSrc: "https://www.shutterstock.com/image-photo/fresh-tasty-burger-isolated-on-600nw-705104968.jpg", name: "Pasta" },
-  { imgSrc: "https://www.shutterstock.com/image-photo/fresh-tasty-burger-isolated-on-600nw-705104968.jpg", name: "Burger" },
-  { imgSrc: "https://www.shutterstock.com/image-photo/fresh-tasty-burger-isolated-on-600nw-705104968.jpg", name: "Pasta" },
-  { imgSrc: "https://www.shutterstock.com/image-photo/fresh-tasty-burger-isolated-on-600nw-705104968.jpg", name: "Burger" }
-];
 
-const CategoryItem = ({ imgSrc, name }) => (
-  <div className="category-item">
+const CategoryItem = ({category}) => {
+  const dispatch=useDispatch();
+  const handleCategoryClick=async ()=>{
+    try{
+      const data = await fetch(`http://localhost:8080/foodapp/category/all/item/${category.categoryId}`)
+      const jsonData = await data.json()
+      if(jsonData.status){
+        dispatch(addItems(jsonData))
+        return ;
+      }
+      if(jsonData.status==false){
+        alert("no data found")
+      }
+    }catch(Exception){
+      console.log("server is not running or something went wrong which fetching data")  
+    }
+
+  }
+  
+  return (
+  <button onClick={handleCategoryClick}>
+    <div className="category-item">
     <div className="flex flex-col items-center p-5">
-      <img src={menu1} className="category-image" alt={name}  />
+      <img src="" alt ="category"className="category-image"   />
     </div>
-    <h3 className="category-name flex justify-center flex-col sm:text-sm lg:text-xl" >{name}</h3>
+    <h3 className="category-name flex justify-center flex-col sm:text-sm lg:text-xl" >{category.name}</h3>
   </div>
+  </button>
 );
+}
 
 const Category = () => {
+  const [categoryData,setCategoryData] =useState([])
+  const getAllCategory = async () => {
+    try{
+      const data = await fetch("http://localhost:8080/foodapp/category/all")
+      const jsonData = await data.json()
+      if(jsonData.status){
+        setCategoryData(jsonData.data)
+        return ;
+      }
+      if(jsonData.status==false){
+        alert("no data found")
+      }
+    }catch(Exception){
+      console.log("server is not running or something went wrong which fetching data")  
+    }
+  }
+  useEffect(()=>{
+    getAllCategory()
+  },[])
   return (
     <>
       <div className="flex justify-center">
         <div className="category-container  justify-between  w-3/4 mt-[9px] ">
-          {categories.map((category, index) => (
-            <CategoryItem key={index} imgSrc={category.imgSrc} name={category.name} />
-          ))}
+          {categoryData.length>0?categoryData.map((data, index) => (
+            <CategoryItem key={index} category={data} />
+          )):null}
         </div>
       </div>
       <div className="flex justify-center">
