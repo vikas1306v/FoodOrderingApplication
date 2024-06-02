@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/category")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class CategoryController
 {
     private final CategoryService categoryService;
@@ -49,6 +50,15 @@ public class CategoryController
     @RequestParam(value = "page_size",defaultValue = "10") Integer pageSize,
     @RequestParam(value = "page_number",defaultValue = "0") Integer pageNumber,@RequestParam(value = "sort",defaultValue = "asc") String sort) {
         return categoryService.findItemsInCategory(id, pageSize, pageNumber, sort);
+    }
+    @GetMapping("/all/item/{category_id}")
+    public ResponseEntity<GenericResponseBean<?>> findAllItemsOfCategory(@PathVariable("category_id") Integer categoryId){
+        return categoryService.findAllItemsByCategory(categoryId);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<GenericResponseBean<?>> getAllCategories(){
+        return categoryService.findAllCategories();
     }
 
 

@@ -32,33 +32,33 @@ public class RequestFilter extends OncePerRequestFilter {
     String [] bypassUrl={"/auth/register",
             "/auth/login",
             "/image",
-            "/auth/google/signup","/payment/pay","/item/search","/item/all"};
+            "/auth/google/signup","/payment/pay","/item/search","/item/all","/category/all","/category/all/item/"};
     @Override
     protected void doFilterInternal(@Nonnull HttpServletRequest request,
                                     @Nonnull HttpServletResponse response,
                                     @Nonnull FilterChain filterChain) throws ServletException, IOException
     {
-        String servletPath = request.getServletPath();
-        if(Arrays.asList(bypassUrl).contains(servletPath))
-        {
-            filterChain.doFilter(request,response);
-            return ;
-        }
+//        String servletPath = request.getServletPath();
+//        if(Arrays.asList(bypassUrl).contains(servletPath))
+//        {
+//            filterChain.doFilter(request,response);
+//            return ;
+//        }
         String token=request.getHeader("Authorization");
-        if(token==null)
-        {
-            ObjectMapper objectMapper = new ObjectMapper();
-            Map<String, Object> errorResponse = new HashMap<>();
-            errorResponse.put("error", "Token not provided");
-            errorResponse.put("message", "Please provide a valid token");
-            errorResponse.put("status",false);
-            String jsonResponse = objectMapper.writeValueAsString(errorResponse);
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.setContentType("application/json");
-            response.getWriter().write(jsonResponse);
-            return;
-        }
-        if(!token.startsWith("Bearer "))
+//        if(token==null)
+//        {
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            Map<String, Object> errorResponse = new HashMap<>();
+//            errorResponse.put("error", "Token not provided");
+//            errorResponse.put("message", "Please provide a valid token");
+//            errorResponse.put("status",false);
+//            String jsonResponse = objectMapper.writeValueAsString(errorResponse);
+//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//            response.setContentType("application/json");
+//            response.getWriter().write(jsonResponse);
+//            return;
+//        }
+        if(token==null||!token.startsWith("Bearer "))
         {
             filterChain.doFilter(request,response);
             return ;

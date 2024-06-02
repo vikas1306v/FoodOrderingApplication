@@ -30,7 +30,7 @@ public class Categories implements Serializable
     private String categoryType;//veg or non-veg
 
 
-    @OneToMany(mappedBy = "categories")
+    @OneToMany(mappedBy = "categories",fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Item> item;
 }

@@ -151,4 +151,18 @@ public class CategoryService
         });
     }
 
+    public ResponseEntity<GenericResponseBean<?>> findAllItemsByCategory(Integer categoryId) {
+        Categories categories = categoryRepository.findByCategoryId(categoryId).orElseThrow(() -> new FoodOrderingMainException("Category Not Found"));
+        List<Item> items=categories.getItem();
+        return ResponseEntity.status(HttpStatus.OK).body(
+                GenericResponseBean.builder().status(true).message("Items Found").data(items).build()
+        );
+    }
+
+    public ResponseEntity<GenericResponseBean<?>> findAllCategories() {
+        List<Categories> categories = categoryRepository.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(
+                GenericResponseBean.builder().status(true).message("Items Found").data(categories).build()
+        );
+    }
 }
