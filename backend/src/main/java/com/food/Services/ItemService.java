@@ -38,6 +38,7 @@ public class ItemService
             Item build = Item.builder().isItemActive(false).
                     itemName(createItemRequestDto.getItemName()).
                     isItemInStock(false).
+                    itemImage(createItemRequestDto.getItemImage()).
                     isItemInStock(true).
                     itemDescription(createItemRequestDto.getItemDescription()).
                     categories(category).

@@ -37,6 +37,7 @@ public class CategoryService
             Categories category = Categories.builder()
                     .categoryName(createCategoryRequestDto.getCategoryName())
                     .categoryDescription(createCategoryRequestDto.getCategoryDescription())
+                    .categoryImage(createCategoryRequestDto.getCategoryImage())
                     .isCategoryActive(false)
                     .categoryType(createCategoryRequestDto.getCategoryType())
                     .build();

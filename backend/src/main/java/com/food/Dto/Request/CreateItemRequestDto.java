@@ -19,6 +19,9 @@ public class CreateItemRequestDto {
     @JsonProperty("item_name")
     private String itemName;
 
+    @JsonProperty("item_image")
+    private String itemImage;
+
     @JsonProperty("item_description")
     private String itemDescription;
 
