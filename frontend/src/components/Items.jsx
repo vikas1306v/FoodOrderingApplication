@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import FilterPageItems from "./FilterPageItems";
 import { useDispatch, useSelector } from "react-redux";
-import { addItems } from "../redux/slices/ItemSlice";
+import { addItems, removeAllItems } from "../redux/slices/ItemSlice";
 
 const Items = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Items = () => {
         return;
       }
       if (jsonData.status === false) {
-        alert("No data found");
+        dispatch(removeAllItems());
       }
     } catch (error) {
       console.log("Server is not running or something went wrong while fetching data");

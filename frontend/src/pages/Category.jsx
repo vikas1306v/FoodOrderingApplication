@@ -26,9 +26,9 @@ const CategoryItem = ({category}) => {
   <button onClick={handleCategoryClick}>
     <div className="category-item">
     <div className="flex flex-col items-center p-5">
-      <img src="" alt ="category"className="category-image"   />
+      <img src={category.categoryImage} alt ="category"className="category-image"   />
     </div>
-    <h3 className="category-name flex justify-center flex-col sm:text-sm lg:text-xl" >{category.name}</h3>
+    <h3 className="category-name flex justify-center flex-col sm:text-sm lg:text-xl" >{category.categoryName}</h3>
   </div>
   </button>
 );

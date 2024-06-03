@@ -12,8 +12,11 @@ const itemSlice = createSlice({
     addItems(state, action) {
       state.items=action.payload.data
     },
+    removeAllItems(state){
+      state.items=null
+    }
   },
 });
 
-export const { addItems} = itemSlice.actions;
+export const { addItems,removeAllItems} = itemSlice.actions;
 export default itemSlice.reducer;

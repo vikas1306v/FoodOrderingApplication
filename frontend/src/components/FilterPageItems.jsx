@@ -7,8 +7,6 @@ const FilterPageItems = ({item}) => {
     const [addToCartData, setAddToCartData] = useState([]);
    
     const userData = useSelector((state) => state.user);
-    console.log(userData.user_id);
-
     const handleAddToCart = async () => {
         if(userData.user_id === null) {
             navigate("/login")
@@ -40,7 +38,7 @@ const FilterPageItems = ({item}) => {
     <>
       <div class="max-w-sm mx-6 my-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 hover:border-gray-300 hover:shadow-lg transition duration-300 ease-in-out dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:hover:shadow-lg">
         <a href="#">
-          <img class="p-6 rounded-t-lg" src={food_1} alt="product image" />
+          <img class="p-6 rounded-t-lg" src={item.itemImage} alt="product image" />
         </a>
         <div class="px-5 pb-5">
           <a href="#">
