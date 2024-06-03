@@ -1,0 +1,78 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
+.navbar {
+  position: fixed;
+ 
+  background-color: #333;
+  z-index: 2000;
+}
+
+.category-image:hover {
+  transform: scale(1.05); /* Slightly enlarge the image */
+  opacity: 0.8; /* Change opacity on hover */
+}
+.category-name {
+  word-wrap: break-word; /* Break words when necessary */
+  word-break: break-all; /* Break long words */
+  white-space: normal; /* Allow wrapping */
+  text-align: center;
+}
+
+.category-container {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden; /* Prevent vertical scrolling */
+  white-space: nowrap;
+  padding: 10px;
+}
+
+.category-item {
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+.category-image {
+  width: 100%;
+  /* height: auto; */
+  max-height: 100px; /* Adjust max-height as needed */
+  object-fit: cover;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .category-item {
+    width: 120px; /* Adjust for smaller screens */
+  }
+  
+  .category-image {
+    max-height: 100px; /* Adjust for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .category-item {
+    width: 100px; /* Adjust for smaller screens */
+  }
+  
+  .category-image {
+    max-height: 100px; /* Adjust for smaller screens */
+  }
+}
+
+
+
+.error-page {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+.flowbite-pagination .current-page {
+  background-color: blue; /* Set blue color for the current page */
+}
+
+/* Style for next button */
+.flowbite-pagination .next-page {
+  color: green; /* Set green color for the next button */
+}
