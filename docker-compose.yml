@@ -1,0 +1,29 @@
+services:
+  food-ordering-app:
+    image: vikas1306/foodapp:latest
+    ports:
+      - "8080:8080"
+    environment:
+    - 'MYSQL_HOST=my-db'
+    - 'MYSQL_DB=FoodOrderingApp'
+    - 'MYSQL_USER=root'
+    - 'MYSQL_PASSWORD=root'
+    - 'MYSQL_PORT=3306'
+    depends_on:
+      - my-db
+    networks: [my-network]
+  my-sql-db:
+    image: mysql:5.7
+    ports:
+      - "3307:3306"
+    environment:
+    - 'MYSQL_ROOT_PASSWORD=root'
+    - 'MYSQL_DATABASE=FoodOrderingApp'
+    networks: [my-network]
+    volumes:
+      - my-volume:/var/lib/mysql
+
+volumes:
+  my-volume:
+network:
+  my-network:
