@@ -5,6 +5,10 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-id')
         DOCKER_IMAGE = 'vikas1306v/first-docker-jenkins-pipeline'
     }
+    tools {
+            jdk 'java-17'
+            git 'Default' // Ensure this matches the name of your Git installation
+        }
 
 
     stages {
