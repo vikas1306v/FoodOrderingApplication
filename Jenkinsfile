@@ -2,12 +2,10 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-id') // Replace with your Docker Hub credentials ID
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-id')
         DOCKER_IMAGE = 'vikas1306v/first-docker-jenkins-pipeline'
     }
-    tools {
-    		jdk 'java-17'
-    	}
+
 
     stages {
         stage('Build') {
