@@ -131,6 +131,7 @@ public class CartService {
         return oneItemDiscount*quantity;
     }
 
+    @Transactional
     public ResponseEntity<GenericResponseBean<AddToCartResponseDto>> removeFromCart(CreateCartRequestDto createCartRequestDto) {
         User user= userRepository.findById(createCartRequestDto.getUserId()).orElseThrow(()->new FoodOrderingMainException("User not found"));
         Item item= itemRepository.findById(createCartRequestDto.getItemId()).orElseThrow(() -> new FoodOrderingMainException("Item not found"));
